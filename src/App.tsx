@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-function App() {
+import { PeoplePage } from './components/PeoplePage';
+import { Navbar } from './components/Navbar';
+
+import './App.scss';
+import { HomePage } from './components/HomePage';
+import { NotFoundPage } from './components/NotFoundPage';
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div data-cy="app">
+      <Navbar />
+
+      <div className="section">
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/home" element={<Navigate to="/" replace />} />
+
+            <Route path="/people" element={<PeoplePage />} />
+            <Route path="/people/:personId" element={<PeoplePage />} />
+
+            <Route
+              path="*"
+              element={<NotFoundPage />}
+            />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
-}
-
-export default App;
+};

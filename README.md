@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# React People Table - Filtering and Sorting
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ [DEMO](https://bozhenabodnar.github.io/react-table/)
 
-## Available Scripts
+ This project is an extension of the React People Table example, adding the ability to filter and sort people in the table. The filters and sort parameters are saved as URL search parameters, allowing you to share the link and reproduce the exact view.
 
-In the project directory, you can run:
+## Implementation Details
 
-### `npm start`
+Saving Filters and Sort Params
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The URLSearchParams API is used to handle URL search parameters. Whenever a filter or sort option changes, the corresponding search parameters are updated using the set method of the URLSearchParams object.
+Keeping Search Params When Navigating
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+When loading the People page or selecting a person, the search parameters are retrieved from the URL, ensuring that the filter and sort states are preserved.
+Displaying Sidebar Filters
 
-### `npm test`
+The sidebar filters are rendered conditionally based on the presence of loaded people data. This ensures that the filters are only displayed when the people data is available.
+NameFilter
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    An input field is provided in the sidebar for the name filter.
+    Changes in the input field are captured using an event handler.
+    The query search parameter is updated with the text from the input field using the set method of the URLSearchParams object.
+    The filter is applied by performing a case-insensitive search on the name, motherName, and fatherName fields.
+    If the input field is empty, the query search parameter is removed from the URL using the delete method of the URLSearchParams object.
 
-### `npm run build`
+CenturyFilter
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    Multiple centuries or all of them can be selected using checkboxes or similar input elements.
+    Event handlers are attached to capture the changes in the selected centuries.
+    The centuries are added as search parameters using the append method of the URLSearchParams object.
+    The selected centuries are retrieved from the URL using the getAll method of the URLSearchParams object.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Sorting
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    Clickable arrows are added to the table headers of the sortable columns (name, sex, born, and died).
+    Clicking on a column header triggers the sorting functionality.
+    On the first click, people are sorted in ascending order based on the selected field (a -> z or 0 -> 9).
+    On the second click, the sorting order is reversed.
+    On the third click, sorting is disabled.
+    The sort field is saved in the URL search parameters using the set method of the URLSearchParams object.
+    If the sorting order is reversed, the order=desc parameter is added.
+    If sorting is disabled, the sort and order parameters are removed from the URL.
 
-### `npm run eject`
+Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    Clone the repository and navigate to the project directory.
+    Run npm install to install the dependencies.
+    Run npm start to start the development server.
+    Access the application in your browser at http://localhost:3000.
+    Use the provided input fields, checkboxes, and table headers to filter and sort the people data.
+    The changes in filters and sort options will be reflected in the URL search parameters.
+    You can share the URL to showcase the same filtered and sorted view.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Note: The sorting and filtering tests are not implemented in this example.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Conclusion
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+By adding filtering and sorting functionality to the React People Table, you can now easily filter the people based on name and select specific centuries. Additionally, sorting the table columns allows you to view the data in ascending or descending order. The use of URL search parameters ensures that the filter and sort states are maintained when navigating within the People page or sharing the link with others. Feel free to explore and enhance this project further based on your specific requirements.
