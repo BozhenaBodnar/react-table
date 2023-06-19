@@ -12,7 +12,6 @@ export const PageNavLink: React.FC<Props> = ({ link, title }) => (
     to={link}
     className={({ isActive }: { isActive: boolean }) => classNames(
       'navbar-item',
-      { 'has-background-grey-lighter': isActive },
     )}
   >
     {title}
